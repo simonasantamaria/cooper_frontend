@@ -32,6 +32,14 @@ import FolderIcon from '@mui/icons-material/Folder';
 import MenuItem from '@mui/material/MenuItem';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
+//import{ init } from 'emailjs-com';
+//init("user_f3CQB1im3popVTlDE3kA3");
+import emailjs from 'emailjs-com';
+const SERVICE_ID = "service_cgboddf";
+const TEMPLATE_ID = "template_7vfo4ds";
+const USER_ID = "user_f3CQB1im3popVTlDE3kA3";
+
+
 
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -151,7 +159,26 @@ const useStyles = makeStyles({
 })
 
 
+
 function App() {
+
+  const [email, setEmail] = React.useState("");
+
+  function handleClick() {
+  console.log(email)
+  var data = {
+    to_email:email,
+  };
+
+  emailjs.send(SERVICE_ID, TEMPLATE_ID, data, USER_ID).then(
+    function (response) {
+      console.log(response.status, response.text);
+    },
+    function (err) {
+      console.log(err);
+    }
+  );
+}
 
   const [todos,setTodos] = useState([])
   const todoNameRef = useRef()
@@ -187,6 +214,22 @@ function App() {
     })
     todoNameRef.current.value = null
   }
+
+  function handleClick() {
+   console.log(email)
+   var data = {
+     to_email:email,
+   };
+
+   emailjs.send(SERVICE_ID, TEMPLATE_ID, data, USER_ID).then(
+     function (response) {
+       console.log(response.status, response.text);
+     },
+     function (err) {
+       console.log(err);
+     }
+   );
+ }
 
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -253,6 +296,24 @@ const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 
   return (
 
+        <div className="App">
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <p>
+          Enter your email here
+          <input
+            type="email"
+            onChange={(event) => setEmail(event.target.value)}
+          ></input>
+          <button type="submit" onClick={handleClick}>
+            Send mail
+          </button>
+        </p>
+      </header>
+    </div>
+    );
+    }
+
     <Box sx={{ display: 'flex', }}   className={classes.boxBackground} >
       <CssBaseline />
 
@@ -306,7 +367,7 @@ const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         </Grid>
 
         <Grid item xs={7} md={11}>
-        Risk Assessment Application to be reviewd
+        TEST Risk Assessment Application to be reviewd
         </Grid>
 
         <Grid item xs={20} md={2}>
@@ -409,7 +470,8 @@ const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
           }}
           style={{ height: 40,  padding: 10, alignItems: 'end'}}
         >
-        Send Form
+        Send Formmm
+
         </Button>
         </Grid>
 
