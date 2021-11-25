@@ -374,6 +374,8 @@ const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
               label="Name"
               defaultValue="Chris Petrulla"
               variant="standard"
+              type="email"
+              onChange={(event) => setEmail(event.target.value)}
             />
             <TextField
               required
@@ -381,10 +383,6 @@ const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
               label="Email"
               defaultValue="chris.petrulla@dhsp.com"
               variant="standard"
-              <input
-                type="email"
-                onChange={(event) => setEmail(event.target.value)}
-              ></input>
             />
             <TextField
               id="outlined-select-currency"
