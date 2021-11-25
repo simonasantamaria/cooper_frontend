@@ -461,7 +461,6 @@ const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
       </Grid>
 
       <div className="AppEmail">
-          <img src={logo} className="App-logo" alt="logo" />
           <p>
             Enter your email here
             <input
