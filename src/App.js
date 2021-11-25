@@ -297,22 +297,20 @@ const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
   return (
 
         <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Enter your email here
-          <input
-            type="email"
-            onChange={(event) => setEmail(event.target.value)}
-          ></input>
-          <button type="submit" onClick={handleClick}>
-            Send mail
-          </button>
-        </p>
-      </header>
-    </div>
-    );
-    }
+          <header className="App-header">
+            <img src={logo} className="App-logo" alt="logo" />
+            <p>
+              Enter your email here
+              <input
+                type="email"
+                onChange={(event) => setEmail(event.target.value)}
+              ></input>
+              <button type="submit" onClick={handleClick}>
+                Send mail
+              </button>
+            </p>
+          </header>
+        </div>
 
     <Box sx={{ display: 'flex', }}   className={classes.boxBackground} >
       <CssBaseline />
