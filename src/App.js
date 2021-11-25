@@ -381,6 +381,10 @@ const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
               label="Email"
               defaultValue="chris.petrulla@dhsp.com"
               variant="standard"
+              <input
+                type="email"
+                onChange={(event) => setEmail(event.target.value)}
+              ></input>
             />
             <TextField
               id="outlined-select-currency"
@@ -443,35 +447,21 @@ const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         <Grid item xs={6} md={7}>
         </Grid>
         <Grid item xs={6} md={5}>
-        <Button
-          variant="contained"
-          color="primary"
-          alignOffset={{
-            x: 2,
-            y: 100,
-          }}
-          style={{ height: 40,  padding: 10, alignItems: 'end'}}
-        >
-        Send Formmm
+
+        <div className="AppEmail">
+            <p>
+              Enter your email here
+              <button type="submit" onClick={handleClick}>
+                Send mail
+              </button>
+            </p>
+        </div>
 
         </Button>
         </Grid>
 
 
       </Grid>
-
-      <div className="AppEmail">
-          <p>
-            Enter your email here
-            <input
-              type="email"
-              onChange={(event) => setEmail(event.target.value)}
-            ></input>
-            <button type="submit" onClick={handleClick}>
-              Send mail
-            </button>
-          </p>
-      </div>
 
     </Box>
         </Box>
