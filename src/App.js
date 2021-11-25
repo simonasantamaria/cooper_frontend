@@ -446,14 +446,9 @@ const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         </Grid>
         <Grid item xs={6} md={5}>
 
-        <div className="AppEmail">
-            <p>
-              Enter your email here
-              <button type="submit" onClick={handleClick}>
+        <button type="submit" onClick={handleClick}>
                 Send mail
-              </button>
-            </p>
-        </div>
+        </button>
         </Grid>
 
 
