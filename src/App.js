@@ -162,13 +162,15 @@ const useStyles = makeStyles({
 
 function App() {
 
-  const [email, setEmail] = React.useState("");
+  const [email, setEmail] = React.useState("Omar");
 
   function handleClick() {
-  console.log(email)
-  var data = {
+  console.log("buttom_press",email)
+  const data = {
     to_email:email,
   };
+
+  console.log("data",data)
 
   emailjs.send(SERVICE_ID, TEMPLATE_ID, data, USER_ID).then(
     function (response) {
@@ -214,22 +216,6 @@ function App() {
     })
     todoNameRef.current.value = null
   }
-
-  function handleClick() {
-   console.log(email)
-   var data = {
-     to_email:email,
-   };
-
-   emailjs.send(SERVICE_ID, TEMPLATE_ID, data, USER_ID).then(
-     function (response) {
-       console.log(response.status, response.text);
-     },
-     function (err) {
-       console.log(err);
-     }
-   );
- }
 
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -375,12 +361,11 @@ const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
               defaultValue="Chris Petrulla"
               variant="standard"
             />
-            //<TextField
+
             <input
             type="email"
             onChange={(event) => setEmail(event.target.value)}
             ></input>
-            ///>
             <TextField
               id="outlined-select-currency"
               select
