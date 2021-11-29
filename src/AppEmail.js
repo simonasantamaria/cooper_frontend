@@ -32,8 +32,14 @@ import FolderIcon from '@mui/icons-material/Folder';
 import MenuItem from '@mui/material/MenuItem';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-import { ThemeProvider } from '@material-ui/core';
-import { theme } from './theme_own';
+//import{ init } from 'emailjs-com';
+//init("user_f3CQB1im3popVTlDE3kA3");
+import emailjs from 'emailjs-com';
+const SERVICE_ID = "service_cgboddf";
+const TEMPLATE_ID = "template_7vfo4ds";
+const USER_ID = "user_f3CQB1im3popVTlDE3kA3";
+
+
 
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -153,7 +159,28 @@ const useStyles = makeStyles({
 })
 
 
+
 function App() {
+
+  const [email, setEmail] = React.useState("Omar");
+
+  function handleClick() {
+  console.log("buttom_press",email)
+  const data = {
+    to_email:email,
+  };
+
+  console.log("data",data)
+
+  emailjs.send(SERVICE_ID, TEMPLATE_ID, data, USER_ID).then(
+    function (response) {
+      console.log(response.status, response.text);
+    },
+    function (err) {
+      console.log(err);
+    }
+  );
+}
 
   const [todos,setTodos] = useState([])
   const todoNameRef = useRef()
@@ -301,88 +328,118 @@ const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 
       <DrawerHeader />
 
-      <Grid container direction="column">
-      <Grid item> This is the Header </Grid>
-      <Grid item container>
-      <Grid item xs={2} />
-      <Grid item xs={6}>
 
-      This is the Content
+        <Grid container spacing={8}>
 
-              <Typography
-              className={classes.changeStyle}
-              color="primary" >
-              Fill in all the details to deploy the form
-              </Typography>
+        <Grid item xs={6} md={2}>
+        </Grid>
 
+        <Grid item xs={7} md={11}>
+        TEST Risk Assessment Application to be reviewd
+        </Grid>
 
-          <Box
-            component="form"
-            className={classes.boxBackground3}
-            sx={{
-              '& .MuiTextField-root': { m: 1, width: '25ch' },
-            }}
-            noValidate
-            autoComplete="off"
-          >
-            <div>
-              <TextField
-                required
-                id="standard-required"
-                label="Name"
-                defaultValue="Chris Petrulla"
-                variant="standard"
-              />
-              <TextField
-                required
-                id="standard-required"
-                label="Email"
-                defaultValue="chris.petrulla@dhsp.com"
-                variant="standard"
-              />
-              <TextField
-                required
-                id="standard-required"
-                label="Departement"
-                defaultValue="Data Science Diabetes"
-                variant="standard"
-              />
-              <TextField
-                required
-                id="standard-required"
-                label="Form"
-                defaultValue="Risk Assessment"
-                variant="standard"
-              />
-              <TextField
-                id="outlined-select-currency"
-                select
-                label="Select Dataset"
-                value={dataset}
-                onChange={handleChange}
-              >
-                {datasets.map((option) => (
-                  <MenuItem key={option.value} value={option.value}>
-                    {option.label}
-                  </MenuItem>
-                ))}
-              </TextField>
+        <Grid item xs={20} md={2}>
 
-            </div>
-
-
-          </Box>
 
         </Grid>
-        <Grid item xs={2} />
+
+        <Grid item xs={10} md={4}>
+        <Box
+          component="form"
+          className={classes.boxBackground3}
+          sx={{
+            '& .MuiTextField-root': { m: 1, width: '25ch' },
+          }}
+          noValidate
+          autoComplete="off"
+        >
+          <div>
+            <TextField
+              required
+              id="standard-required"
+              label="Name"
+              defaultValue="Chris Petrulla"
+              variant="standard"
+            />
+
+            <input
+            type="email"
+            onChange={(event) => setEmail(event.target.value)}
+            ></input>
+            <TextField
+              id="outlined-select-currency"
+              select
+              label="Select Dataset"
+              value={dataset}
+              onChange={handleChange}
+            >
+              {datasets.map((option) => (
+                <MenuItem key={option.value} value={option.value}>
+                  {option.label}
+                </MenuItem>
+              ))}
+            </TextField>
 
 
+          </div>
+
+        </Box>
+        </Grid>
+
+        <Grid item xs={6} md={1}>
+        </Grid>
+
+        <Grid item xs={6} md={4}>
+        <Box
+          component="form"
+          className={classes.boxBackground3}
+          sx={{
+            '& .MuiTextField-root': { m: 1, width: '25ch' },
+          }}
+          noValidate
+          autoComplete="off"
+        >
+          <div>
+          <TextField
+            required
+            id="standard-required"
+            label="Form"
+            defaultValue="Risk Assessment"
+            variant="standard"
+          />
+
+          <TextField
+            required
+            id="standard-required"
+            label="Departement"
+            defaultValue="Data Science Diabetes"
+            variant="standard"
+          />
+
+          </div>
+
+        </Box>
+        </Grid>
+
+        <Grid item xs={6} md={1}>
+        </Grid>
+
+        <Grid item xs={6} md={7}>
+        </Grid>
+        <Grid item xs={6} md={5}>
+
+        <button type="submit" onClick={handleClick}>
+                Send mail
+        </button>
+        </Grid>
 
 
-    </Grid>
-    </Grid>
+      </Grid>
+
     </Box>
         </Box>
+
+
   )
 }
 

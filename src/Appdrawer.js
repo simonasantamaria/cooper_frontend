@@ -8,6 +8,9 @@ import { v4 as uuidv4 } from 'uuid';
 import TextField from '@material-ui/core/TextField';
 import {makeStyles} from '@material-ui/core/styles';
 
+import ContactUs from './ContactUs.js';
+
+
 import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import MuiDrawer from '@mui/material/Drawer';
@@ -32,15 +35,21 @@ import FolderIcon from '@mui/icons-material/Folder';
 import MenuItem from '@mui/material/MenuItem';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-import { ThemeProvider } from '@material-ui/core';
-import { theme } from './theme_own';
 
+import { ThemeProvider } from "@material-ui/styles";
+import theme from "./theme_own";
 
-const Item = styled(Paper)(({ theme }) => ({
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
+const drawerWidth = 240;
+
+//import{ init } from 'emailjs-com';
+//init("user_f3CQB1im3popVTlDE3kA3");
+import emailjs from 'emailjs-com';
+
+const Item = styled(Paper)(({ theme2 }) => ({
+  ...theme2.typography.body2,
+  padding: theme2.spacing(1),
   textAlign: 'center',
-  color: theme.palette.text.secondary,
+  color: theme2.palette.text.secondary,
 }));
 
 
@@ -48,16 +57,16 @@ const LOCAL_STORAGE_KEY = 'todoApp.todos'
 
 const drawerWidth = 240;
 
-const openedMixin = (theme) => ({
+const openedMixin = (theme2) => ({
   width: drawerWidth,
-  transition: theme.transitions.create('width', {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.enteringScreen,
+  transition: theme2.transitions.create('width', {
+    easing: theme2.transitions.easing.sharp,
+    duration: theme2.transitions.duration.enteringScreen,
   }),
   overflowX: 'hidden',
 });
 
-const closedMixin = (theme) => ({
+const closedMixin = (theme2) => ({
   transition: theme.transitions.create('width', {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
@@ -78,7 +87,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   ...theme.mixins.toolbar,
 }));
 
-const AppBar2 = styled(MuiAppBar, {
+const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== 'open',
 })(({ theme, open }) => ({
   zIndex: theme.zIndex.drawer + 1,
@@ -153,7 +162,11 @@ const useStyles = makeStyles({
 })
 
 
+
 function App() {
+
+
+  const form = useRef();
 
   const [todos,setTodos] = useState([])
   const todoNameRef = useRef()
@@ -255,10 +268,9 @@ const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 
   return (
 
-    <Box sx={{ display: 'flex', }}   className={classes.boxBackground} >
-      <CssBaseline />
+    <ThemeProvider theme={theme}>
 
-      <AppBar2 position="fixed" open={open}>
+      <AppBar position="fixed" open={open}>
         <Toolbar>
           <IconButton
             color="inherit"
@@ -276,7 +288,7 @@ const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 
           </Typography>
         </Toolbar>
-      </AppBar2>
+      </AppBar>
 
 
       <Drawer2 variant="permanent" open={open}>
@@ -301,88 +313,50 @@ const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 
       <DrawerHeader />
 
-      <Grid container direction="column">
-      <Grid item> This is the Header </Grid>
-      <Grid item container>
-      <Grid item xs={2} />
-      <Grid item xs={6}>
 
-      This is the Content
+        <Grid container spacing={8}>
 
-              <Typography
-              className={classes.changeStyle}
-              color="primary" >
-              Fill in all the details to deploy the form
-              </Typography>
+        <Grid item xs={7} md={7}>
+        </Grid>
 
+        <Grid item xs={7} md={11}>
+        TEST Risk Assessment Application to be reviewd
+        </Grid>
 
-          <Box
-            component="form"
-            className={classes.boxBackground3}
-            sx={{
-              '& .MuiTextField-root': { m: 1, width: '25ch' },
-            }}
-            noValidate
-            autoComplete="off"
-          >
-            <div>
-              <TextField
-                required
-                id="standard-required"
-                label="Name"
-                defaultValue="Chris Petrulla"
-                variant="standard"
-              />
-              <TextField
-                required
-                id="standard-required"
-                label="Email"
-                defaultValue="chris.petrulla@dhsp.com"
-                variant="standard"
-              />
-              <TextField
-                required
-                id="standard-required"
-                label="Departement"
-                defaultValue="Data Science Diabetes"
-                variant="standard"
-              />
-              <TextField
-                required
-                id="standard-required"
-                label="Form"
-                defaultValue="Risk Assessment"
-                variant="standard"
-              />
-              <TextField
-                id="outlined-select-currency"
-                select
-                label="Select Dataset"
-                value={dataset}
-                onChange={handleChange}
-              >
-                {datasets.map((option) => (
-                  <MenuItem key={option.value} value={option.value}>
-                    {option.label}
-                  </MenuItem>
-                ))}
-              </TextField>
-
-            </div>
-
-
-          </Box>
+        <Grid item xs={20} md={2}>
 
         </Grid>
-        <Grid item xs={2} />
+
+        <Grid item xs={10} md={4}>
+
+        <ContactUs />
+
+        </Grid>
+
+        <Grid item xs={6} md={1}>
+        </Grid>
+
+        <Grid item xs={6} md={4}>
+
+        </Grid>
+
+        <Grid item xs={6} md={1}>
+        </Grid>
+
+        <Grid item xs={6} md={7}>
+        </Grid>
+        <Grid item xs={6} md={5}>
 
 
+        </Grid>
 
 
-    </Grid>
-    </Grid>
+      </Grid>
+
     </Box>
-        </Box>
+
+      </ThemeProvider>
+
   )
 }
 

@@ -8,6 +8,12 @@ import { v4 as uuidv4 } from 'uuid';
 import TextField from '@material-ui/core/TextField';
 import {makeStyles} from '@material-ui/core/styles';
 
+import Drawer from '@mui/material/Drawer';
+
+
+import ContactUs from './ContactUs.js';
+
+
 import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import MuiDrawer from '@mui/material/Drawer';
@@ -32,14 +38,16 @@ import FolderIcon from '@mui/icons-material/Folder';
 import MenuItem from '@mui/material/MenuItem';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
+import AccountBoxIcon from '@mui/icons-material/AccountBox';
+
+import { ThemeProvider } from "@material-ui/styles";
+import theme from "./theme_own";
+
 //import{ init } from 'emailjs-com';
 //init("user_f3CQB1im3popVTlDE3kA3");
 import emailjs from 'emailjs-com';
-const SERVICE_ID = "service_cgboddf";
-const TEMPLATE_ID = "template_7vfo4ds";
-const USER_ID = "user_f3CQB1im3popVTlDE3kA3";
 
-
+const drawerWidth = 240;
 
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -52,7 +60,6 @@ const Item = styled(Paper)(({ theme }) => ({
 
 const LOCAL_STORAGE_KEY = 'todoApp.todos'
 
-const drawerWidth = 240;
 
 const openedMixin = (theme) => ({
   width: drawerWidth,
@@ -84,7 +91,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   ...theme.mixins.toolbar,
 }));
 
-const AppBar2 = styled(MuiAppBar, {
+const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== 'open',
 })(({ theme, open }) => ({
   zIndex: theme.zIndex.drawer + 1,
@@ -105,6 +112,8 @@ const AppBar2 = styled(MuiAppBar, {
 const Drawer2 = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme, open }) => ({
     width: drawerWidth,
+    backgroundColor: '#9e9e9e',
+    background: "#9e9e9e",
     flexShrink: 0,
     whiteSpace: 'nowrap',
     boxSizing: 'border-box',
@@ -136,7 +145,7 @@ const useStyles = makeStyles({
     /*whiteSpace: "nowrap",*/
   },
   boxBackground: {
-  backgroundColor: "white",
+  backgroundColor: "#1a237e",
   fontSize: 30,
   },
   boxBackground2: {
@@ -162,25 +171,8 @@ const useStyles = makeStyles({
 
 function App() {
 
-  const [email, setEmail] = React.useState("Omar");
 
-  function handleClick() {
-  console.log("buttom_press",email)
-  const data = {
-    to_email:email,
-  };
-
-  console.log("data",data)
-
-  emailjs.send(SERVICE_ID, TEMPLATE_ID, data, USER_ID).then(
-    function (response) {
-      console.log(response.status, response.text);
-    },
-    function (err) {
-      console.log(err);
-    }
-  );
-}
+  const form = useRef();
 
   const [todos,setTodos] = useState([])
   const todoNameRef = useRef()
@@ -239,19 +231,25 @@ function App() {
       id: 1,
       fontSize: 40,
       avatarIcon: (<DescriptionIcon/>),
-      text: "Document"
+      text: "Forms"
       },
       {
       id: 2,
       fontSize: 40,
       avatarIcon: (<AssessmentIcon/>),
-      text: "Analysis"
+      text: "Data Processing"
       },
       {
       id: 3,
       fontSize: 40,
       avatarIcon: (<FolderIcon/>),
-      text: "Folders"
+      text: "Repository"
+      },
+      {
+      id: 3,
+      fontSize: 40,
+      avatarIcon: (<AccountBoxIcon/>),
+      text: "Account"
       },
       ];
 
@@ -282,10 +280,89 @@ const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 
   return (
 
-    <Box sx={{ display: 'flex', }}   className={classes.boxBackground} >
-      <CssBaseline />
 
-      <AppBar2 position="fixed" open={open}>
+        <ThemeProvider theme={theme}>
+
+    <Box sx={{ display: 'flex' }}>
+   <CssBaseline />
+   <AppBar
+     position="fixed"
+     sx={{ width: `calc(100% - ${drawerWidth}px)`, ml: `${drawerWidth}px` }}
+   >
+     <Toolbar>
+       <Typography variant="h6" noWrap component="div">
+         Permanent drawer
+       </Typography>
+     </Toolbar>
+   </AppBar>
+   <Drawer
+   classes={{ paper: classes.paper}}
+     sx={{
+       backgroundColor: "#1a237e",
+       color:"#1a237e",
+       width: drawerWidth,
+       flexShrink: 0,
+       '& .MuiDrawer-paper': {
+         width: drawerWidth,
+         boxSizing: 'border-box',
+       },
+     }}
+     variant="permanent"
+     anchor="left"
+   >
+     <Toolbar />
+     <Divider />
+     <Divider />
+     <List>
+         {icons.map((item, index) => (
+             <ListItem button key={item}>
+                 <ListItemIcon>{item.avatarIcon}</ListItemIcon>
+                 <ListItemText primary={item.text} />
+                 <Box sx={{ m: 6 }} />
+             </ListItem>
+         ))}
+     </List>
+   </Drawer>
+   <Box
+     component="main"
+     sx={{ flexGrow: 1, bgcolor: 'inherit', p: 3 }}
+   >
+     <Toolbar />
+
+
+    <Box  sx={{
+            backgroundColor: '#eeeeee'
+      }}>
+
+
+     <Box  sx={{
+       backgroundColor: '#9e9e9e',
+       '&:hover': {
+         backgroundColor: 'primary.main',
+         opacity: [0.9, 0.8, 0.7],
+       },
+     }}>
+
+
+     <Grid
+       container
+       direction="row"
+       justifyContent="space-evenly"
+       alignItems="center"
+     >
+      <Grid item> Form </Grid>
+      <Grid item> ID 6745943 </Grid>
+      <Grid item> Christ Petrulla</Grid>
+    </Grid>
+
+       </Box>
+
+     <ContactUs />
+   </Box>
+   </Box>
+ </Box>
+
+      <AppBar position="fixed" open={open}>
         <Toolbar>
           <IconButton
             color="inherit"
@@ -303,142 +380,17 @@ const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 
           </Typography>
         </Toolbar>
-      </AppBar2>
+      </AppBar>
 
-
-      <Drawer2 variant="permanent" open={open}>
-        <DrawerHeader>
-          <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
-          </IconButton>
-        </DrawerHeader>
-        <Divider />
-        <List>
-            {icons.map((item, index) => (
-                <ListItem button key={item}>
-                    <ListItemIcon>{item.avatarIcon}</ListItemIcon>
-                    <ListItemText primary={item.text} />
-                    <Box sx={{ m: 6 }} />
-                </ListItem>
-            ))}
-        </List>
-      </Drawer2>
 
       <Box component="main"  className={classes.boxBackground2} sx={{ flexGrow: 1, p: 4 }}>
 
       <DrawerHeader />
 
 
-        <Grid container spacing={8}>
-
-        <Grid item xs={6} md={2}>
-        </Grid>
-
-        <Grid item xs={7} md={11}>
-        TEST Risk Assessment Application to be reviewd
-        </Grid>
-
-        <Grid item xs={20} md={2}>
-
-
-        </Grid>
-
-        <Grid item xs={10} md={4}>
-        <Box
-          component="form"
-          className={classes.boxBackground3}
-          sx={{
-            '& .MuiTextField-root': { m: 1, width: '25ch' },
-          }}
-          noValidate
-          autoComplete="off"
-        >
-          <div>
-            <TextField
-              required
-              id="standard-required"
-              label="Name"
-              defaultValue="Chris Petrulla"
-              variant="standard"
-            />
-
-            <input
-            type="email"
-            onChange={(event) => setEmail(event.target.value)}
-            ></input>
-            <TextField
-              id="outlined-select-currency"
-              select
-              label="Select Dataset"
-              value={dataset}
-              onChange={handleChange}
-            >
-              {datasets.map((option) => (
-                <MenuItem key={option.value} value={option.value}>
-                  {option.label}
-                </MenuItem>
-              ))}
-            </TextField>
-
-
-          </div>
-
-        </Box>
-        </Grid>
-
-        <Grid item xs={6} md={1}>
-        </Grid>
-
-        <Grid item xs={6} md={4}>
-        <Box
-          component="form"
-          className={classes.boxBackground3}
-          sx={{
-            '& .MuiTextField-root': { m: 1, width: '25ch' },
-          }}
-          noValidate
-          autoComplete="off"
-        >
-          <div>
-          <TextField
-            required
-            id="standard-required"
-            label="Form"
-            defaultValue="Risk Assessment"
-            variant="standard"
-          />
-
-          <TextField
-            required
-            id="standard-required"
-            label="Departement"
-            defaultValue="Data Science Diabetes"
-            variant="standard"
-          />
-
-          </div>
-
-        </Box>
-        </Grid>
-
-        <Grid item xs={6} md={1}>
-        </Grid>
-
-        <Grid item xs={6} md={7}>
-        </Grid>
-        <Grid item xs={6} md={5}>
-
-        <button type="submit" onClick={handleClick}>
-                Send mail
-        </button>
-        </Grid>
-
-
-      </Grid>
-
     </Box>
-        </Box>
 
+      </ThemeProvider>
 
   )
 }
