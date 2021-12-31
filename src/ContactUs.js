@@ -107,18 +107,6 @@ const ContactUs = () => {
       value: 'Chest-X-ray-images',
       label: 'Chest-X-ray-images',
     },
-    {
-      value: 'credit-card-028593',
-      label: 'credit-card-028593',
-    },
-    {
-      value: 'geodata',
-      label: 'geodata',
-    },
-    {
-      value: 'Insurance',
-      label: 'Insurance',
-    },
   ];
 
   const sendEmail = (e) => {
