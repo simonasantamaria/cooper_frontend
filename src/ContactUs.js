@@ -136,7 +136,7 @@ const ContactUs = () => {
             required
             id="user_name"
             label="Name"
-            defaultValue="Simona"
+            defaultValue="SimonaTest2"
             variant="standard"
             name="user_name"
             type="text"
