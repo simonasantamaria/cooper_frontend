@@ -51,7 +51,7 @@ const USER_ID = "user_f3CQB1im3popVTlDE3kA3";
 
 const ContactUs = () => {
 
-  const [name, setName] = useState('Simona');
+  const [name, setName] = useState('SimonaTest');
   const [email, setEmail] = useState('simona.santamaria1@gmail.com');
 
   const useStyles = makeStyles({
