@@ -338,9 +338,9 @@ const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
        justifyContent="space-evenly"
        alignItems="center"
      >
-      <Grid item> Form TEST TEST TEST </Grid>
-      <Grid item> ID 6745943 </Grid>
-      <Grid item> Christ Petrulla</Grid>
+      <Grid item> Form </Grid>
+      <Grid item> ID Demo </Grid>
+      <Grid item> Hans Muster</Grid>
     </Grid>
 
        </Box>

@@ -51,7 +51,7 @@ const USER_ID = "user_f3CQB1im3popVTlDE3kA3";
 
 const ContactUs = () => {
 
-  const [name, setName] = useState('SimonaTest');
+  const [name, setName] = useState('Simona');
   const [email, setEmail] = useState('simona.santamaria1@gmail.com');
 
   const useStyles = makeStyles({
@@ -136,7 +136,7 @@ const ContactUs = () => {
             required
             id="user_name"
             label="Name"
-            defaultValue="SimonaTest2"
+            defaultValue="Simona"
             variant="standard"
             name="user_name"
             type="text"
