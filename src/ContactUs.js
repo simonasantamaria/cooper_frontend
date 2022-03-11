@@ -112,7 +112,7 @@ const ContactUs = () => {
     const sendEmail = (e) => {
         e.preventDefault();
         // POST request to send payload to BAck-End
-        axios.post({BACKEND_URL}`api/v1/print-variables/`, {
+        axios.post(`https://cooper-b.herokuapp.com/api/v1/print-variables/`, {
             "name": name,
             "email": email
         })
