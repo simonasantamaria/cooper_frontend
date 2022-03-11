@@ -43,6 +43,7 @@ import TodoList from './TodoList';
 import { v4 as uuidv4 } from 'uuid';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
+import axios from "axios";
 
 const SERVICE_ID = "service_cgboddf";
 const TEMPLATE_ID = "template_7vfo4ds";
@@ -111,6 +112,18 @@ const ContactUs = () => {
 
   const sendEmail = (e) => {
     e.preventDefault();
+    // POST request to send payload to BAck-End
+    axios.post(`http://127.0.0.1:8000/api/v1/print-variables/`, {
+      "name": name,
+      "email": email
+    })
+        .then(res => {
+          // console.log(res);
+          if (res.status === 200) {
+            console.log(res.data.response);
+          }
+
+        })
     emailjs.send(SERVICE_ID, TEMPLATE_ID, {
       to_email: email,
       to_name: name,
