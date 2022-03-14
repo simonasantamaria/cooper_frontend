@@ -53,6 +53,7 @@ const ContactUs = () => {
 
     const [name, setName] = useState('Simona');
     const [email, setEmail] = useState('simona.santamaria1@gmail.com');
+    const [backendResponse, setBackendResponse ] = useState('');
 
     const useStyles = makeStyles({
         changeStyle: {
@@ -119,6 +120,7 @@ const ContactUs = () => {
             .then(res => {
                 if (res.status === 200) {
                     console.log(res.data);
+                    setBackendResponse(res.data.modified_variable_name)
                 }
 
             })
@@ -132,7 +134,7 @@ const ContactUs = () => {
 
         <form>
             <div>
-
+                <p>response... {backendResponse? backendResponse:''}</p>
                 <Stack
                     component="form"
                     sx={{
