@@ -113,7 +113,7 @@ const ContactUs = () => {
     const sendEmail = (e) => {
         e.preventDefault();
         // POST request to send payload to BAck-End
-        axios.post(`${BACKEND_URL}api/v1/print-variables/`, {
+        axios.post(`${BACKEND_URL}print-variables/`, {
             "name": name,
             "email": email
         })
